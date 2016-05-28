@@ -2,6 +2,7 @@ var $ = window.jQuery
 var PIXI = window.PIXI
 var Stats = window.Stats
 var requestAnimationFrame = window.requestAnimationFrame
+var cancelAnimationFrame = window.cancelAnimationFrame
 
 $(document).ready(onReady)
 
@@ -54,10 +55,12 @@ var stage
 
 var isWebGL
 
+var animFrame
+
 function onReady () {
   init()
   resize()
-  requestAnimationFrame(update)
+  animFrame = requestAnimationFrame(update)
 }
 
 function init () {
@@ -160,6 +163,7 @@ function onMouseUp (event) {
 }
 
 function resize () {
+  cancelAnimationFrame(animFrame)
   width = window.innerWidth
   height = window.innerHeight
 
@@ -197,6 +201,7 @@ function resize () {
   for (var i = 0; i < oldCount; i++) {
     addBee(true)
   }
+  animFrame = requestAnimationFrame(update)
 }
 
 function update () {
@@ -244,6 +249,6 @@ function update () {
   }
 
   renderer.render(stage)
-  requestAnimationFrame(update)
+  animFrame = requestAnimationFrame(update)
   stats.end()
 }
