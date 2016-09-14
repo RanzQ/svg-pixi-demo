@@ -125,7 +125,7 @@ function init () {
   })
 
   document.addEventListener('touchstart', onTouchStart, true)
-  document.addEventListener('touchstart', onTouchMove, true)
+  document.addEventListener('touchmove', onTouchMove, true)
   document.addEventListener('touchend', onTouchEnd, true)
 
   document.addEventListener('mousedown', onMouseDown, true)
@@ -159,11 +159,11 @@ function updateMousePos (event) {
 
 function onTouchStart (event) {
   isAdding = true
-  updateMousePos(event)
+  updateMousePos(event.changedTouches[0])
 }
 
 function onTouchMove (event) {
-  if (isAdding) updateMousePos(event)
+  if (isAdding) updateMousePos(event.changedTouches[0])
 }
 
 function onTouchEnd (event) {
